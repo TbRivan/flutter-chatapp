@@ -1,4 +1,5 @@
-import 'package:chat_app/login_page.dart';
+import 'package:chat_app/pages/home_page.dart';
+import 'package:chat_app/pages/login_page.dart';
 import 'package:chat_app/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Urbanist',
-        scaffoldBackgroundColor: AppColors.background,
-      ),
-      home: const LoginPage(),
-    );
+        theme: ThemeData(
+          fontFamily: 'Urbanist',
+          scaffoldBackgroundColor: AppColors.background,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const LoginPage(),
+          '/home': (context) => const HomePage(),
+        });
   }
 }
