@@ -1,3 +1,5 @@
+import 'package:chat_app/config/app_routes.dart';
+import 'package:chat_app/config/app_string.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -18,7 +20,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 const Spacer(), // spacer otomatis secara dinamis
                 const Text(
-                  'Hello, Welcome Back!',
+                  AppStrings.helloWelcome,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -28,7 +30,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 const Text(
-                  'Login to Continue',
+                  AppStrings.loginToContinue,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -60,7 +62,7 @@ class LoginPage extends StatelessWidget {
                       debugPrint('Forgot is clicked');
                     },
                     style: TextButton.styleFrom(foregroundColor: Colors.white),
-                    child: const Text('Forgot Password'),
+                    child: const Text(AppStrings.forgotPassword),
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -69,7 +71,8 @@ class LoginPage extends StatelessWidget {
                   height: 46,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/home');
+                      Navigator.of(context)
+                          .pushReplacementNamed(AppRoutes.main);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber,
@@ -80,7 +83,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 const Spacer(),
                 const Text(
-                  'Or Sign in with',
+                  AppStrings.loginToContinue,
                   style: TextStyle(color: Colors.white),
                 ),
                 const SizedBox(height: 16),
@@ -109,7 +112,7 @@ class LoginPage extends StatelessWidget {
                           height: 30,
                         ),
                         const SizedBox(width: 8),
-                        const Text('Login with Google')
+                        const Text(AppStrings.loginWithGoogle)
                       ],
                     ),
                   ),
@@ -139,7 +142,7 @@ class LoginPage extends StatelessWidget {
                           height: 22,
                         ),
                         const SizedBox(width: 8),
-                        const Text('Login with Facebook')
+                        const Text(AppStrings.loginWithFacebook)
                       ],
                     ),
                   ),
@@ -148,7 +151,7 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Don't have account? ",
+                      AppStrings.dontHaveAccount,
                       style: TextStyle(color: Colors.white),
                     ),
                     TextButton(
