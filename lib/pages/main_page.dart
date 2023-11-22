@@ -1,4 +1,5 @@
 import 'package:chat_app/components/bottom_navigation_item.dart';
+import 'package:chat_app/components/new_post_modal.dart';
 import 'package:chat_app/pages/home_page.dart';
 import 'package:chat_app/pages/profile_page.dart';
 import 'package:chat_app/styles/app_colors.dart';
@@ -22,6 +23,17 @@ class _MainPageState extends State<MainPage> {
         bottomNavigationBar: MyBottomNavigation(
           currentIndex: currentIndex,
           onTap: (value) {
+            if (value == Menus.add) {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return const NewPostModal();
+                },
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+              );
+              return;
+            }
             setState(() {
               currentIndex = value;
             });
@@ -30,7 +42,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   final pages = [
-    HomePage(),
+    const HomePage(),
     const Center(child: Text('Favorite')),
     const Center(child: Text('Add Post')),
     const Center(child: Text('Messages')),

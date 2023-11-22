@@ -1,9 +1,22 @@
 import 'package:chat_app/config/app_routes.dart';
+import 'package:chat_app/provider/app_repo.dart';
+import 'package:chat_app/provider/post_provider.dart';
 import 'package:chat_app/styles/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<AppRepo>(
+        create: (context) => AppRepo(),
+      ),
+      ChangeNotifierProvider<PostProvider>(
+        create: (context) => PostProvider(),
+      ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

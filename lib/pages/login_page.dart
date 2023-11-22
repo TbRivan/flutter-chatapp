@@ -1,8 +1,17 @@
 import 'package:chat_app/config/app_routes.dart';
-import 'package:chat_app/config/app_string.dart';
-import 'package:flutter/material.dart';
 
+import 'package:chat_app/config/app_string.dart';
+import 'package:chat_app/provider/app_repo.dart';
+import 'package:chat_app/provider/login_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
+  // final usernameController = TextEditingController();
+  // final passwordController = TextEditingController();
+  // var username = '';
+  // var password = '';
   const LoginPage({super.key});
 
   @override
@@ -37,6 +46,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 const Spacer(),
                 TextField(
+                  onChanged: (value) =>
+                      {context.read<LoginProvider>().username = value},
+                  // controller: usernameController,
                   decoration: InputDecoration(
                     hintText: 'Username',
                     border: const OutlineInputBorder(
@@ -47,6 +59,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 TextField(
+                  onChanged: (value) =>
+                      {context.read<LoginProvider>().password = value},
+                  // controller: passwordController,
                   decoration: InputDecoration(
                     hintText: 'Password',
                     border: const OutlineInputBorder(
@@ -71,8 +86,12 @@ class LoginPage extends StatelessWidget {
                   height: 46,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(AppRoutes.main);
+                      context.read<LoginProvider>().login().then((value) {
+                        context.read<AppRepo>().user = value.user;
+                        context.read<AppRepo>().token = value.token;
+                        Navigator.of(context)
+                            .pushReplacementNamed(AppRoutes.main);
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.amber,

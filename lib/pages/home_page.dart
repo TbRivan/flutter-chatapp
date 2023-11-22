@@ -4,17 +4,27 @@ import 'package:chat_app/components/post_item.dart';
 import 'package:chat_app/components/toolbar.dart';
 import 'package:chat_app/config/app_routes.dart';
 import 'package:chat_app/config/app_string.dart';
+import 'package:chat_app/provider/post_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
-  List<String> users = [];
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<PostProvider>().getPost();
+  }
 
   @override
   Widget build(BuildContext context) {
-    mockUsersFromServer();
     return Scaffold(
       appBar: Toolbar(
         title: AppStrings.appName,
@@ -27,23 +37,21 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: ListView.separated(
-        itemBuilder: (context, index) {
-          return PostItem(user: users[index]);
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(
-            height: 24,
+      body: Consumer<PostProvider>(
+        builder: (context, value, child) {
+          return ListView.separated(
+            itemBuilder: (context, index) {
+              return PostItem(post: value.list[index]);
+            },
+            itemCount: value.list.length,
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: 24,
+              );
+            },
           );
         },
-        itemCount: users.length,
       ),
     );
-  }
-
-  mockUsersFromServer() {
-    for (var i = 0; i < 20; i++) {
-      users.add('User number $i');
-    }
   }
 }

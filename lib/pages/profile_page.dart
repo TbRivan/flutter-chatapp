@@ -2,8 +2,10 @@ import 'package:chat_app/components/toolbar.dart';
 import 'package:chat_app/components/user_avatar.dart';
 import 'package:chat_app/config/app_routes.dart';
 import 'package:chat_app/config/app_string.dart';
+import 'package:chat_app/provider/app_repo.dart';
 import 'package:chat_app/styles/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum ProfileMenu {
   edit,
@@ -15,6 +17,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.read<AppRepo>().user;
     return Scaffold(
       appBar: Toolbar(
         title: AppStrings.profile,
@@ -41,21 +44,21 @@ class ProfilePage extends StatelessWidget {
           )
         ],
       ),
-      body: const Column(
+      body: Column(
         children: [
-          UserAvatar(size: 90),
-          SizedBox(height: 24),
+          const UserAvatar(size: 90),
+          const SizedBox(height: 24),
           Text(
-            'Admin User',
+            '${user?.firstname} ${user?.lastname}',
             style: AppText.header2,
           ),
-          SizedBox(height: 12),
-          Text(
+          const SizedBox(height: 12),
+          const Text(
             'Indonesia',
             style: AppText.subtitle3,
           ),
-          SizedBox(height: 24),
-          Row(
+          const SizedBox(height: 24),
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
@@ -87,7 +90,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
-          Divider(thickness: 1, height: 24)
+          const Divider(thickness: 1, height: 24)
         ],
       ),
     );
