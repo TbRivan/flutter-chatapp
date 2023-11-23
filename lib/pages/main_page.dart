@@ -1,5 +1,6 @@
 import 'package:chat_app/components/bottom_navigation_item.dart';
 import 'package:chat_app/components/new_post_modal.dart';
+import 'package:chat_app/pages/chat_page.dart';
 import 'package:chat_app/pages/home_page.dart';
 import 'package:chat_app/pages/profile_page.dart';
 import 'package:chat_app/styles/app_colors.dart';
@@ -45,7 +46,7 @@ class _MainPageState extends State<MainPage> {
     const HomePage(),
     const Center(child: Text('Favorite')),
     const Center(child: Text('Add Post')),
-    const Center(child: Text('Messages')),
+    const ChatPage(),
     const ProfilePage()
   ];
 }

@@ -1,4 +1,4 @@
-import 'package:chat_app/data/model/model.dart';
+import 'package:chat_app/data/model/post.dart';
 import 'package:chat_app/data/service/base_service.dart';
 
 class GetPostService extends ServiceBase<List<Post>> {

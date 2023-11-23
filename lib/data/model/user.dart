@@ -1,3 +1,5 @@
+import 'package:chat_app/data/model/location.dart';
+
 class User {
   final int id;
   final String? username;
@@ -7,26 +9,28 @@ class User {
   final String? birthday;
   final String? gender;
   final bool? visibleGender;
+  final Location? location;
 
-  User({
-    required this.id,
-    required this.username,
-    required this.firstname,
-    required this.lastname,
-    required this.mobile,
-    required this.birthday,
-    required this.gender,
-    required this.visibleGender,
-  });
+  User(
+    this.id,
+    this.username,
+    this.firstname,
+    this.lastname,
+    this.mobile,
+    this.birthday,
+    this.gender,
+    this.visibleGender,
+    this.location,
+  );
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json['id'],
-        username: json['username'],
-        firstname: json['firstname'],
-        lastname: json['lastname'],
-        mobile: json['mobile'],
-        birthday: json['birthday'],
-        gender: json['gender'],
-        visibleGender: json['visibleGender'],
-      );
+      json['id'],
+      json['username'],
+      json['firstname'],
+      json['lastname'],
+      json['mobile'],
+      json['birthday'],
+      json['gender'],
+      json['visibleGender'],
+      json['location'] != null ? Location.fromJson(json['location']) : null);
 }

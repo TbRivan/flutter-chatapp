@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:chat_app/components/app_text_field.dart';
 import 'package:chat_app/provider/app_repo.dart';
 import 'package:chat_app/provider/post_provider.dart';
 import 'package:chat_app/styles/app_colors.dart';
 import 'package:chat_app/styles/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class NewPostModal extends StatelessWidget {
@@ -39,16 +42,47 @@ class NewPostModal extends StatelessWidget {
             style: AppText.header1,
           ),
           const SizedBox(height: 16),
-          Container(
-            width: 200,
-            height: 200,
-            decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                  width: 2,
+          Consumer<PostProvider>(
+            builder: (context, value, child) => GestureDetector(
+              onTap: () {
+                context.read<PostProvider>().pickImage(ImageSource.gallery);
+              },
+              child: Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(16),
+                  ),
                 ),
-                borderRadius: const BorderRadius.all(Radius.circular(16))),
-            child: const Center(child: Text('Upload from gallery')),
+                child: value.imagePath == null
+                    ? const Center(
+                        child: Text('Upload from gallery'),
+                      )
+                    : ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(16),
+                        ),
+                        child: Stack(
+                          children: [
+                            Image.file(File(value.imagePath!)),
+                            IconButton(
+                                onPressed: () {
+                                  value.deleteImage();
+                                },
+                                icon: const Icon(
+                                  Icons.delete_rounded,
+                                  color: Colors.red,
+                                ))
+                          ],
+                        ),
+                      ),
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           const Text('Or'),
